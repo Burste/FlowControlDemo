@@ -13,18 +13,28 @@ const function2 = function(callback) {
     }, 3000);
 };
 
+const function3 = function(callback) {
+    setTimeout(function(){
+        console.log('function3 done');
+        return callback();
+    }, 1000);
+};
+
 const pfunction1 = promise.promisify(function1);
 const pfunction2 = promise.promisify(function2);
+const pfunction3 = promise.promisify(function3);
 
+co(function*() {
+    yield [
+        pfunction2(),
+        pfunction3()
+    ];
 
-//yield 可以執行後直接下一個
-co(function*() { 
-    yield pfunction2();
     yield pfunction1();
 })
 .then(function() {
     console.log('done!!');
 })
-.catch(function(err) {
-    console.log('error!!');
+.catch(function(error) {
+    console.log('error!!!');
 });
