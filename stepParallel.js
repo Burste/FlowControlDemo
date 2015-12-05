@@ -18,13 +18,24 @@ const function3 = function(callback) {
         return callback();
     }, 1000);
 };
-
+const function4 = function(callback){
+    setTimeout(function(){
+    console.log('function4 done');
+    return callback();
+    },5000);
+};
 /*
-this.parallel();
-function2,function3同時執行完才會執行下一個function
+function () {
+    function4(this.parallel());
+    function2(this.parallel());
+    function3(this.parallel());
+  }
+function4,2,3同時執行 
+這整個function執行結束才會執行下一個function
 */
 step(
   function () {
+    function4(this.parallel());
     function2(this.parallel());
     function3(this.parallel());
   },
