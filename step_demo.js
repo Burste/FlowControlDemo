@@ -13,11 +13,12 @@ const function2 = function(callback) {
 };
 
 step(
-  function() {
-    function2(this);
-  },
+
   function() {
     function1(this);
+  },
+    function() {
+    function2(this);//this 是說這行處理完 跳下一個function 不斷往下跑
   },
   function() {
     console.log('done');
