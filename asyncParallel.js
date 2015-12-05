@@ -20,16 +20,27 @@ const function3 = function(callback) {
 };
 
 //併發處理
+//可以幫你把同一件事情放在同一個function
 async.waterfall([
     function(cb) 
     {
         async.parallel( 
+            
+            //同時、併發處理
             [
-                function(next){function2(next);} , 
-                function(next) { function3(next);}
-            ], cb);
+                function(next){function2(next);} , //3s
+                function(next){function3(next);}//1s
+                
+            ], 
+            function(err)
+            {
+                cb();
+                return;
+            }
+            );
+            //兩個function併發完才會往下
     },
-    function(err, cb) {
+    function(cb) {
         function1(cb);
     }
 ],

@@ -13,6 +13,7 @@ const function2 = function(callback) {
 };
 
 async.waterfall([
+    //一層處理完才會處理下一個function
     function(cb) {
         cb("HEY");//error 處理
     },
